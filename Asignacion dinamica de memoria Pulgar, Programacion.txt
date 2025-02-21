@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    // Uso de malloc para asignar memoria para un arreglo de 5 enteros
+    int *datos = (int *)malloc(5 * sizeof(int));
+    if (datos == 0) {
+        printf("Error al asignar memoria\n");
+        return 1;
+    }
+
+    // Inicialización del arreglo con malloc
+    for (int i = 0; i < 5; i++) {
+        datos[i] = i + 1;
+    }
+
+    printf("Arreglo inicial con malloc: ");
+    for (int i = 0; i < 5; i++) {
+        printf("%d ", datos[i]);
+    }
+    printf("\n");
+
+    // Uso de calloc para asignar memoria para un arreglo de 5 enteros
+    int *valores = (int *)calloc(5, sizeof(int));
+    if (valores == 0) {
+        printf("Error al asignar memoria\n");
+        free(datos);
+        return 1;
+    }
+
+    printf("Arreglo inicial con calloc: ");
+    for (int i = 0; i < 5; i++) {
+        printf("%d ", valores[i]);
+    }
+    printf("\n");
+
+    // Uso de realloc para redimensionar el arreglo original
+    datos = (int *)realloc(datos, 10 * sizeof(int));
+    if (datos == 0) {
+        printf("Error al redimensionar memoria\n");
+        free(valores);
+        return 1;
+    }
+
+    // Inicialización del nuevo espacio del arreglo con realloc
+    for (int i = 5; i < 10; i++) {
+        datos[i] = i + 1;
+    }
+
+    printf("Arreglo redimensionado con realloc: ");
+    for (int i = 0; i < 10; i++) {
+        printf("%d ", datos[i]);
+    }
+    printf("\n");
+
+    // Liberar la memoria asignada
+    free(datos);
+    free(valores);
+
+    return 0;
+}
